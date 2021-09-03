@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IpcRenderer, RemoteMainInterface } from 'electron';
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+import { Observable } from 'rxjs';
+
+
+@Injectable({
+  providedIn: 'root'
 })
-export class AppComponent {
+export class SidebarService {
 
   private ipc: IpcRenderer;
+
 
   constructor() {
     if ((<any>window).require) {
       try {
         this.ipc = (<any>window).require('electron').ipcRenderer;
+        this.readResponsesIPC();
       } catch (e) {
         throw e;
       }
@@ -20,15 +23,15 @@ export class AppComponent {
       console.warn('App not running inside Electron!');
     }
   }
-  title = 'demo-electron-angular';
 
-  openModal(){
-    console.log(this.ipc);
-    
+  openModal(): void {
     console.log("Open a modal");
-    this.ipc.send("openModal");
+    this.ipc.send("openDialog");
   }
 
-
-
+  readResponsesIPC(): void {
+    this.ipc.on("getPathResponse", (event) => {
+      console.log(event);
+    });
+  }
 }

@@ -1,12 +1,18 @@
 {
   "name": "demo-electron-angular",
   "version": "0.0.0",
+  "author": "Marc Serret",
+  "description": "desc",
+  "main": "./src/electron-main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href ./",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "compileelecstart": "ng build --base-href ./ && electron .",
+    "elecstart": "electron ."
+
   },
   "private": true,
   "dependencies": {
@@ -34,6 +40,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "typescript": "~4.2.3"
+    "typescript": "~4.2.3",
+    "electron": "^14.0.0"
   }
 }
